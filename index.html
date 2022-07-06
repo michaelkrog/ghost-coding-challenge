@@ -142,11 +142,26 @@
             }
         </style>
 
-        <script>
 
-        </script>
     </head>
     
+    <template id="comment-entry-template">
+        <div class="comments__entry">
+            <img class="comments__entry__avatar avatar" src="assets/avatars/${username}.png">
+            <div class="comments__entry__content">
+                <div>
+                    <span class="comments__entry__name">${name}</span>
+                    <span class="comments__entry__timestamp">&#183; ${timestamp}</span>
+                </div>
+                <div class="comments__entry__content__text">${message}</div>
+                <div>
+                    <button appearance="text">Upvote</button>
+                    <button appearance="text">Reply</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <body>
         <h1>Discussion</h1>
         <div class="comment-input">
@@ -157,23 +172,21 @@
 
         <hr>
 
-        <div class="comments">
-            <div class="comments__entry">
-                <img class="comments__entry__avatar avatar" src="assets/avatars/rob.png">
-                <div class="comments__entry__content">
-                    <div>
-                        <span class="comments__entry__name">Rob Hope</span>
-                        <span class="comments__entry__timestamp">&#183; 45 min ago</span>
-                    </div>
-                    <div class="comments__entry__content__text">
-                        Jeepers now that's a huge release with some big community earnings to back it - it must be so rewarding seeing creators quit their day jobs after monetizing (with real MRR) on the new platform.
-                    </div>
-                    <div>
-                        <button appearance="text">Upvote</button>
-                        <button appearance="text">Reply</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="comments" class="comments"></div>
     </body>
+
+    <script>
+        function interpolate(template, params) {
+            const replaceTags = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '(': '&#40;', ')': '&#41;' };
+            const safeInnerHTML = text => text.toString().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag);
+            const keys = Object.keys(params);
+            const keyVals = Object.values(params).map(safeInnerHTML);
+            return new Function(...keys, `return \`${template}\``)(...keyVals);
+        }
+
+        const data = { username: 'rob', name: 'Rob Hope', timestamp: '45 min ago', message: `Jeepers now that's a huge release with some big community earnings to back it - it must be so rewarding seeing creators quit their day jobs after monetizing (with real MRR) on the new platform.`} 
+        const template = document.getElementById('comment-entry-template');
+        const commentsContainer = document.getElementById('comments');
+        commentsContainer.innerHTML = interpolate(template.innerHTML.toString().trim(), data)
+    </script>
 </html>
