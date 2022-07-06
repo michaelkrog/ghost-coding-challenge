@@ -89,10 +89,18 @@
                 padding: var(--spacing-x-small) var(--spacing-small);
             }
 
+            hr {
+                display: block;
+                height: 1px;
+                border: 0; 
+                border-top: 1px solid var(--color-gray-50)
+            }
+
             .comment-entry {
                 display: flex;
                 gap: var(--spacing-small);
                 margin-top: var(--spacing-x-large);
+                margin-bottom: var(--spacing-2x-large);
             }
 
             .comment-entry__input {
@@ -112,5 +120,7 @@
             <input class="comment-entry__input" placeholder="What are your thoughts?" type="text">
             <button class="comment-entry__button">Comment</button>
         </div>
+
+        <hr>
     </body>
 </html>
