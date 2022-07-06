@@ -117,12 +117,13 @@
             }
 
             .comments {
-                display:flex;
+                margin-top: var(--spacing-2x-large);
             }
 
             .comments__entry {
                 display: flex;
                 gap: var(--spacing-small);
+                margin: var(--spacing-large) 0px;
             }
 
             .comments__entry__name {
@@ -140,6 +141,10 @@
                 font-weight: var(--font-weight-light);
                 margin-top: var(--spacing-2x-small);
             }
+
+            .comments__entry__actions {
+                margin-top: var(--spacing-x-small);
+            }
         </style>
 
 
@@ -154,7 +159,7 @@
                     <span class="comments__entry__timestamp">&#183; ${timestamp}</span>
                 </div>
                 <div class="comments__entry__content__text">${message}</div>
-                <div>
+                <div class="comments__entry__actions">
                     <button appearance="text">Upvote</button>
                     <button appearance="text">Reply</button>
                 </div>
@@ -176,6 +181,16 @@
     </body>
 
     <script>
+
+        function fetchComments() {
+            const comments = [
+                { username: 'rob', name: 'Rob Hope', timestamp: '45 min ago', message: `Jeepers now that's a huge release with some big community earnings to back it - it must be so rewarding seeing creators quit their day jobs after monetizing (with real MRR) on the new platform.`},
+                { username: 'sophie', name: 'Sophie Brecht', timestamp: 'Yesterday', message: `Switched our blog from Hubspot to Ghost a year ago -- turned out to be a great decision. Looking forward to this update....the in-platform analytics look especially delicious. :)`},
+                { username: 'cameron', name: 'Cameron Lawrence', timestamp: '3 weeks ago', message: `Love the native memberships and the zipless themes, I was just asked by a friend about options for a new site, and I think I know what I'll be recommending then...`}
+            ];
+            return Promise.resolve(comments);
+        }
+
         function interpolate(template, params) {
             const replaceTags = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '(': '&#40;', ')': '&#41;' };
             const safeInnerHTML = text => text.toString().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag);
@@ -184,9 +199,14 @@
             return new Function(...keys, `return \`${template}\``)(...keyVals);
         }
 
-        const data = { username: 'rob', name: 'Rob Hope', timestamp: '45 min ago', message: `Jeepers now that's a huge release with some big community earnings to back it - it must be so rewarding seeing creators quit their day jobs after monetizing (with real MRR) on the new platform.`} 
+        
         const template = document.getElementById('comment-entry-template');
         const commentsContainer = document.getElementById('comments');
-        commentsContainer.innerHTML = interpolate(template.innerHTML.toString().trim(), data)
+        
+        let html = '';
+        fetchComments().then(messages => {
+            messages.forEach(message => html += interpolate(template.innerHTML.toString().trim(), message));
+            commentsContainer.innerHTML = html;
+        });
     </script>
 </html>
