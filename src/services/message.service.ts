@@ -15,6 +15,7 @@ export class MessageService {
   }
 
   save(message: Message): Message {
+    message.timestamp = new Date();
     if(message.id == null) {
       message.id = `mesg-${new Date().toISOString()}`;
     } else {
@@ -24,7 +25,7 @@ export class MessageService {
       }
     }
     this.messages.push(message);
-    this.messages.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+    this.messages.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
     return message;
   }
 }
