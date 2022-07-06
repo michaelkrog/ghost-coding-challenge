@@ -60,6 +60,10 @@
                 font-weight: var(--font-weight-normal);
             }
 
+            h1 {
+                font-size: var(--font-size-large);
+            }
+
             img.avatar {
                 width: var(--input-height);
                 height: var(--input-height);
@@ -88,6 +92,7 @@
             .comment-entry {
                 display: flex;
                 gap: var(--spacing-small);
+                margin-top: var(--spacing-x-large);
             }
 
             .comment-entry__input {
@@ -101,6 +106,7 @@
     </head>
     
     <body>
+        <h1>Discussion</h1>
         <div class="comment-entry">
             <img class="comment-entry__avatar avatar" src="assets/avatars/rob.png">
             <input class="comment-entry__input" type="text">
