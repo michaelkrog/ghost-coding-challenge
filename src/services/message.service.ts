@@ -13,4 +13,18 @@ export class MessageService {
   findAll(): Message[] {
     return this.messages;
   }
+
+  save(message: Message): Message {
+    if(message.id == null) {
+      message.id = `mesg-${new Date().toISOString()}`;
+    } else {
+      const index = this.messages.map(m => m.id).indexOf(message.id);
+      if(index >= 0) {
+        this.messages.splice(index, 1);
+      }
+    }
+    this.messages.push(message);
+    this.messages.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+    return message;
+  }
 }
