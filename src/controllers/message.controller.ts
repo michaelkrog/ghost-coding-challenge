@@ -12,7 +12,7 @@ export class MessageController {
   }
 
   @Post()
-  create(@Body() message: Message): Message {
+  async create(@Body() message: Message): Promise<Message> {
     return this.messageService.save(message);
   }
 }
