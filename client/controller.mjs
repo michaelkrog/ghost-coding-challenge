@@ -4,7 +4,6 @@ const DAY_MILLIS = HOUR_MILLIS * 24;
 const WEEK_MILLIS = DAY_MILLIS * 7;
 const FOUR_WEEK_MILLIS = WEEK_MILLIS * 4;
 
-
 const avatar = document.getElementById('comment-avatar');
 const input = document.getElementById('comment-input');
 const submit = document.getElementById('comment-submit');
@@ -124,6 +123,6 @@ comments.addEventListener('click', ev => {
   }
 });
 
-// Do initial comment fetching
+// Do initial comment fetching and user randomizing
 loadMessages();
 selectRandomUser();
