@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Discussion</title>
         <meta name="description" content="A standalone app that represents a single article page, and allows someone to submit comments and replies-to-comments, as well as upvote any comments they like.">
-        
         <style>
             @import url('https://rsms.me/inter/inter.css');
             :root {
@@ -154,7 +154,7 @@
             <div class="comments__entry__content">
                 <div>
                     <span class="comments__entry__name">${name}</span>
-                    <span class="comments__entry__timestamp">&#183; ${timestamp}</span>
+                    <span class="comments__entry__timestamp">&#183; ${timeDistance}</span>
                 </div>
                 <div class="comments__entry__content__text">${text}</div>
                 <div class="comments__entry__actions">
@@ -178,61 +178,5 @@
         <div id="comments" class="comments"></div>
     </body>
 
-    <script>
-
-        function fetchMessages() {
-            return fetch('/api/messages').then(response => response.json());
-        }
-
-        function postMessage(message) {
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(message),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-
-            return fetch('/api/messages', options).then(response => response.json());
-        }
-
-        function interpolate(template, params) {
-            const replaceTags = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '(': '&#40;', ')': '&#41;' };
-            const safeInnerHTML = text => text.toString().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag);
-            const keys = Object.keys(params);
-            const keyVals = Object.values(params).map(safeInnerHTML);
-            return new Function(...keys, `return \`${template}\``)(...keyVals);
-        }
-
-        function loadMessages() {
-            const template = document.getElementById('comment-entry-template');
-            const commentsContainer = document.getElementById('comments');
-
-            let html = '';
-            fetchMessages().then(messages => {
-                messages.forEach(message => html += interpolate(template.innerHTML.toString().trim(), message));
-                commentsContainer.innerHTML = html;
-            });
-        }
-        
-        const input = document.getElementById('comment-input');
-        const submit = document.getElementById('comment-submit');
-        
-        // Bind event listeners
-        submit.addEventListener('click', () => {
-            const message = {
-                username: 'rob',
-                name: 'Rob Hope',
-                text: document.getElementById('comment-input').value
-            };
-
-            postMessage(message).then(() => {
-                input.value = '';
-                loadMessages();
-            });
-        });
-
-        // Do initial comment fetching
-        loadMessages();
-    </script>
+    <script type="module" src="controller.mjs"></script>
 </html>
