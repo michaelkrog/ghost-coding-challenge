@@ -4,4 +4,5 @@ export interface Message {
     name: string;
     text: string;
     timestamp: Date;
+    votes: number;
 }

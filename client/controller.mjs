@@ -8,12 +8,14 @@ const FOUR_WEEK_MILLIS = WEEK_MILLIS * 4;
 const avatar = document.getElementById('comment-avatar');
 const input = document.getElementById('comment-input');
 const submit = document.getElementById('comment-submit');
+const comments = document.getElementById('comments');
+const template = document.getElementById('comment-entry-template');
 
 const users = [
-  {username: 'rob', name: 'Rob Hope'},
-  {username: 'sophie', name: 'Sophie Brecht'},
-  {username: 'cameron', name: 'Cameron Lawrence'},
-  {username: 'james', name: 'James'}
+  { username: 'rob', name: 'Rob Hope' },
+  { username: 'sophie', name: 'Sophie Brecht' },
+  { username: 'cameron', name: 'Cameron Lawrence' },
+  { username: 'james', name: 'James' }
 ];
 
 let selectedUser;
@@ -42,6 +44,10 @@ function postMessage(message) {
   return fetch('/api/messages', options)
     .then(response => response.json())
     .then(message => mapDate(message));
+}
+
+function vote(id) {
+  return fetch(`/api/messages/${id}/actions/vote`, { method: 'POST' });
 }
 
 function interpolate(template, params) {
@@ -76,9 +82,6 @@ function formatTimeDistance(date) {
 }
 
 function loadMessages() {
-  const template = document.getElementById('comment-entry-template');
-  const commentsContainer = document.getElementById('comments');
-
   let html = '';
   fetchMessages().then(messages => {
     messages
@@ -87,7 +90,7 @@ function loadMessages() {
         return m;
       })
       .forEach(m => html += interpolate(template.innerHTML.toString().trim(), m));
-    commentsContainer.innerHTML = html;
+    comments.innerHTML = html;
   });
 }
 
@@ -108,6 +111,17 @@ submit.addEventListener('click', () => {
     input.value = '';
     loadMessages();
   });
+});
+
+comments.addEventListener('click', ev => {
+  const action = ev.target.getAttribute('action');
+  const messageId = ev.target.getAttribute('message-id');
+  
+  switch(action) {
+    case 'vote':
+      vote(messageId).then(() => loadMessages());
+      break;
+  }
 });
 
 // Do initial comment fetching
