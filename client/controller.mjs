@@ -4,6 +4,21 @@ const DAY_MILLIS = HOUR_MILLIS * 24;
 const WEEK_MILLIS = DAY_MILLIS * 7;
 const FOUR_WEEK_MILLIS = WEEK_MILLIS * 4;
 
+
+const avatar = document.getElementById('comment-avatar');
+const input = document.getElementById('comment-input');
+const submit = document.getElementById('comment-submit');
+
+const users = [
+  {username: 'rob', name: 'Rob Hope'},
+  {username: 'sophie', name: 'Sophie Brecht'},
+  {username: 'cameron', name: 'Cameron Lawrence'},
+  {username: 'james', name: 'James'}
+];
+
+let selectedUser;
+
+
 function mapDate(message) {
   message.timestamp = new Date(message.timestamp);
   return message;
@@ -76,14 +91,16 @@ function loadMessages() {
   });
 }
 
-const input = document.getElementById('comment-input');
-const submit = document.getElementById('comment-submit');
+function selectRandomUser() {
+  selectedUser = users[Math.floor(Math.random() * 4)];
+  avatar.src = `assets/avatars/${selectedUser.username}.png`;
+}
 
 // Bind event listeners
 submit.addEventListener('click', () => {
   const message = {
-    username: 'rob',
-    name: 'Rob Hope',
+    username: selectedUser.username,
+    name: selectedUser.name,
     text: document.getElementById('comment-input').value
   };
 
@@ -95,3 +112,4 @@ submit.addEventListener('click', () => {
 
 // Do initial comment fetching
 loadMessages();
+selectRandomUser();
