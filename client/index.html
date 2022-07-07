@@ -145,6 +145,10 @@
             .comments__entry__actions {
                 margin-top: var(--spacing-x-small);
             }
+
+            .comments__entry__actions__upvote {
+                margin-left: calc(-1 * var(--spacing-x-small));
+            }
         </style>
     </head>
     
@@ -158,8 +162,8 @@
                 </div>
                 <div class="comments__entry__content__text">${text}</div>
                 <div class="comments__entry__actions">
-                    <button appearance="text">Upvote</button>
-                    <button appearance="text">Reply</button>
+                    <button class="comments__entry__actions__upvote" appearance="text">▲ Upvote</button>
+                    <button class="comments__entry__actions__reply" appearance="text" disabled>Reply</button>
                 </div>
             </div>
         </div>
