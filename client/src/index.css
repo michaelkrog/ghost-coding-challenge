@@ -58,3 +58,38 @@ html {
 body {
   font-size: var(--font-size-small);
 }
+
+button {
+  height: var(--input-height);
+  border: none;
+  padding: var(--spacing-x-small) var(--spacing-small);
+}
+
+button:not(.text) {
+  background: var(--color-violet-600);
+  border-radius: var(--input-border-radius);
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+}
+
+button.text {
+  background: #00000000;
+  color: var(--color-cyan-800);
+  font-weight: var(--font-weight-semibold);
+}
+
+input {
+  box-sizing: border-box;
+  height: var(--input-height);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-50);
+  border-radius: var(--input-border-radius);
+  padding: var(--spacing-x-small) var(--spacing-small);
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid var(--color-gray-50)
+}

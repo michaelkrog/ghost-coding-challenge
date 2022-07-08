@@ -6,6 +6,10 @@ function App() {
   return (
     <div className="App">
       <Avatar username='rob'></Avatar>
+      <input></input>
+      <button>Button</button>
+      <button className="text">Text button</button>
+      <hr></hr>
     </div>
   );
 }
