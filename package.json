@@ -9,14 +9,10 @@
     "start": "npm run start --workspace=server & npm run start --workspace=client"
   },
   "dependencies": {
-    
-  },
-  "devDependencies": {
-   
+    "date-fns": "^2.28.0"
   },
   "workspaces": [
     "server",
     "client"
   ]
-  
 }
