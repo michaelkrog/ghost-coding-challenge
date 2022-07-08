@@ -6,4 +6,5 @@ export interface Message {
     createdDate: Date;
     lastModifiedDate: Date;
     votes: number;
+    parentId?: string;
 }
