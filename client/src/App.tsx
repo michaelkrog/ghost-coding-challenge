@@ -53,6 +53,15 @@ class App extends Component<{}, { messages: Message[] }> {
     });
   }
 
+  renderComment(message: Message, children: Message[]) {
+    return <Comment 
+      key={message.id} 
+      message={message} 
+      onVote={m => this.onVote(m)} 
+      onReply={m => this.onMessage(m)}
+      children={children}></Comment>;
+  }
+
   render() {
     return (
 
@@ -63,8 +72,8 @@ class App extends Component<{}, { messages: Message[] }> {
         <hr></hr>
 
         <div className="comments">
-          {this.state.messages.map((message: Message) => 
-            <Comment key={message.id} message={message} onVote={() => this.onVote(message)}></Comment>
+          {this.state.messages.filter((message: Message) => message.parentId == null).map((message: Message) => 
+            this.renderComment(message, this.state.messages.filter((child: Message) => child.parentId === message.id))
           )}
         </div>
       </div>

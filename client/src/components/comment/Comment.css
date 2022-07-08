@@ -4,6 +4,10 @@
   margin: var(--spacing-large) 0px;
 }
 
+.comment__content {
+  flex: 1;
+}
+
 .comment__name {
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
@@ -28,3 +32,4 @@
 .comment__actions__upvote {
   margin-left: calc(-1 * var(--spacing-small));
 }
+
