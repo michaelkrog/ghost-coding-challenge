@@ -59,6 +59,8 @@ html {
 
 body {
   font-size: var(--font-size-small);
+  max-width: 1023px;
+  margin: auto;
 }
 
 button {
