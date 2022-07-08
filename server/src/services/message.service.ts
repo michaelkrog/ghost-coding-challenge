@@ -49,7 +49,6 @@ export class MessageService {
   }
 
   private onMessageChange(message: Message) {
-    console.log('on message change: ', message);
     this.changeObservable.next(message);
   }
 }

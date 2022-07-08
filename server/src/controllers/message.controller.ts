@@ -28,7 +28,6 @@ export class MessageController {
 
   @Sse('actions/stream')
   sse(): Observable<MessageEvent> {
-    console.log('subscribe');
     return this.messageService.messageChanges().pipe(map(m => { return {data: m} as MessageEvent}));
   }
 }
