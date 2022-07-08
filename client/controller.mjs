@@ -20,15 +20,16 @@ const users = [
 let selectedUser;
 
 
-function mapDate(message) {
-  message.timestamp = new Date(message.timestamp);
+function mapDates(message) {
+  message.createdDate = new Date(message.createdDate);
+  message.lastModifiedDate = new Date(message.lastModifiedDate);
   return message;
 }
 
 function fetchMessages() {
   return fetch('/api/messages')
     .then(response => response.json())
-    .then(messages => messages.map(m => mapDate(m)));
+    .then(messages => messages.map(m => mapDates(m)));
 }
 
 function postMessage(message) {
@@ -42,7 +43,7 @@ function postMessage(message) {
 
   return fetch('/api/messages', options)
     .then(response => response.json())
-    .then(message => mapDate(message));
+    .then(message => mapDates(message));
 }
 
 function vote(id) {
@@ -85,7 +86,7 @@ function loadMessages() {
   fetchMessages().then(messages => {
     messages
       .map(m => {
-        m.timeDistance = formatTimeDistance(m.timestamp);
+        m.timeDistance = formatTimeDistance(m.createdDate);
         return m;
       })
       .forEach(m => html += interpolate(template.innerHTML.toString().trim(), m));

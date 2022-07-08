@@ -3,6 +3,7 @@ export interface Message {
     username: string;
     name: string;
     text: string;
-    timestamp: Date;
+    createdDate: Date;
+    lastModifiedDate: Date;
     votes: number;
 }
