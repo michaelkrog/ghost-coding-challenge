@@ -10,7 +10,7 @@ This is the second version of the app.
 - Tag this work as a GitHub release: “V2”
 
 ## Frontend
-The front end is built with React ad Typescript.
+The front end is built with React and Typescript. It uses SSE for live updates of comments/upvotes.
 
 ## Backend
 The backend is build with the use of NestJS. 
