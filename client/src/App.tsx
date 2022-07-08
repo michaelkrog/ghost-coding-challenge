@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Avatar from './components/avatar/Avatar';
+import CommentInput from './components/comment-input/CommentInput';
 import Comment from './components/comment/Comment';
 import { Message } from './models/message';
 
@@ -9,9 +9,48 @@ class App extends Component<{}, { messages: Message[] }> {
   state = { messages: [] };
 
   componentDidMount() {
-    fetch('/api/messages', { headers: { accept: 'application/json' }, cache: 'no-cache' })
-      .then(response => response.json())
-      .then(messages => this.setState({ messages }));
+    this.fetchMessages();
+  }
+
+  mapDates(message: Message) {
+    message.createdDate = new Date(message.createdDate);
+    message.lastModifiedDate = new Date(message.lastModifiedDate);
+    return message;
+  }
+  
+  fetchMessages() {
+    return fetch('/api/messages', { headers: { accept: 'application/json' }, cache: 'no-cache' })
+      .then(response => response.json() as Promise<Message[]>)
+      .then(messages => messages.map(m => this.mapDates(m)))
+      .then(messages => this.setState({messages}));
+  }
+
+  postMessage(message: Message): Promise<Message> {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(message),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  
+    return fetch('/api/messages', options)
+      .then(response => response.json() as Promise<Message>)
+      .then(message => this.mapDates(message));
+  }
+
+  vote(id: string) {
+    return fetch(`/api/messages/${id}/actions/vote`, { method: 'POST' });
+  }
+
+  onVote(message: Message) {
+    this.vote(message.id!).then(() => this.fetchMessages());
+  }
+
+  onMessage(message: Message) {
+    this.postMessage(message).then(() => {
+      this.fetchMessages();
+    });
   }
 
   render() {
@@ -19,11 +58,7 @@ class App extends Component<{}, { messages: Message[] }> {
 
       <div className="App">
         <h1>Discussion</h1>
-        <div className="comment-input">
-          <Avatar username='rob'></Avatar>
-          <input className="comment-input__input" placeholder="What are your thoughts?" type="text"></input>
-          <button className="comment-input__button">Comment</button>
-        </div>
+        <CommentInput onMessage={message => this.onMessage(message)}></CommentInput>
 
         <hr></hr>
 

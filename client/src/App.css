@@ -1,13 +1,4 @@
-.comment-input {
-  display: flex;
-  gap: var(--spacing-small);
-  margin-top: var(--spacing-x-large);
-  margin-bottom: var(--spacing-2x-large);
-}
 
-.comment-input__input {
-  flex: 1;
-}
 
 .comments {
   margin-top: var(--spacing-2x-large);
