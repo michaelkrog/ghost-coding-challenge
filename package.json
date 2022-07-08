@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    
+    "start": "npm run start --workspace=server & npm run start --workspace=client"
   },
   "dependencies": {
     
@@ -15,7 +15,8 @@
    
   },
   "workspaces": [
-    "server"
+    "server",
+    "client"
   ]
   
 }
