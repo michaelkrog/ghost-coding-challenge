@@ -27,4 +27,4 @@ The controller.mjs file contains the logic for the UI. The code is plain ES6 wit
 The backend is build with the use of NestJS. The requirements list had no VanillaJS requirements for the backend and scaffolding a NestJS backend is both easy and powerful.
 
 # How to run it
-Enter `npm start` and open localhost:3000 in your browser.
+Enter `npm start` and open http://localhost:3000 in your browser.
