@@ -4,10 +4,23 @@ import Avatar from '../avatar/Avatar';
 import './Comment.css';
 import { formatDistance } from 'date-fns';
 
-class Comment extends Component<{ message: Message }> {
+type CommentProps = {
+  message: Message; 
+  parentId?: string;
+  onVote?: () => void;
+  onReply?: (message: Message) => void;
+}
 
-  onVote(event: MouseEvent) {
-    console.log();
+class Comment extends Component<CommentProps> {
+
+  onVote(_: MouseEvent) {
+    if(this.props.onVote) {
+      this.props.onVote();
+    }
+  }
+
+  onReply(_: MouseEvent) {
+
   }
 
   timeDistance() {
@@ -26,7 +39,7 @@ class Comment extends Component<{ message: Message }> {
           <div className="comment__content__text">{this.props.message.text}</div>
           <div className="comment__actions">
             <button className="comment__actions__upvote text" onClick={ev => this.onVote(ev)}>▲ Upvote ({this.props.message.votes})</button>
-            <button className="comment__actions__reply text" disabled>Reply</button>
+            <button className="comment__actions__reply text" onClick={ev => this.onReply(ev)}>Reply</button>
           </div>
         </div>
       </div>

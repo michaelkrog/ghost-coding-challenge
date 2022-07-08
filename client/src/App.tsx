@@ -63,7 +63,9 @@ class App extends Component<{}, { messages: Message[] }> {
         <hr></hr>
 
         <div className="comments">
-          {this.state.messages.map((message: Message) => <Comment key={message.id} message={message}></Comment>)}
+          {this.state.messages.map((message: Message) => 
+            <Comment key={message.id} message={message} onVote={() => this.onVote(message)}></Comment>
+          )}
         </div>
       </div>
     );
