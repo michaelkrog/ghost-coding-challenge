@@ -59,7 +59,7 @@ class Comment extends Component<CommentProps, CommentState> {
             <span className="comment__name">{this.props.message.name}</span>
             <span className="comment__timestamp">&#183; {this.timeDistance()}</span>
           </div>
-          <div className="comment__content__text">{this.props.message.text} {this.props.message.id}</div>
+          <div className="comment__content__text">{this.props.message.text}</div>
           <div className="comment__actions">
             <button className="comment__actions__upvote text" onClick={ev => this.onVote(this.props.message)}>▲ Upvote ({this.props.message.votes})</button>
             <button className="comment__actions__reply text" onClick={ev => this.onReply(ev)}>Reply</button>
