@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, MessageEvent, Param, Post, Sse } from '@nestjs/common';
+import { interval, map, Observable } from 'rxjs';
 import { Message } from 'src/models/message';
 import { MessageService } from '../services/message.service';
 
@@ -23,5 +24,11 @@ export class MessageController {
       message.votes++;
     }
     this.messageService.save(message);
+  }
+
+  @Sse('actions/stream')
+  sse(): Observable<MessageEvent> {
+    console.log('subscribe');
+    return this.messageService.messageChanges().pipe(map(m => { return {data: m} as MessageEvent}));
   }
 }

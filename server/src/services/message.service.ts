@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { Observable, Subject } from 'rxjs';
 import { Message } from 'src/models/message';
 
 @Injectable()
 export class MessageService {
+
+  
+  private changeObservable = new Subject<Message>();
 
   private messages: Message[] = [
     { id: 'mesg-1', username: 'rob', name: 'Rob Hope', createdDate: new Date(), lastModifiedDate: new Date(), text: `Jeepers now that's a huge release with some big community earnings to back it - it must be so rewarding seeing creators quit their day jobs after monetizing (with real MRR) on the new platform.`, votes:0},
@@ -35,6 +39,17 @@ export class MessageService {
       let result = b.votes - a.votes; // Sort by votes
       return result != 0 ? result : a.lastModifiedDate.getTime() - b.lastModifiedDate.getTime(); // or by time of last modification if votes are equal
     });
+    
+    this.onMessageChange(message);
     return message;
+  }
+
+  messageChanges(): Observable<Message> {
+    return this.changeObservable;
+  }
+
+  private onMessageChange(message: Message) {
+    console.log('on message change: ', message);
+    this.changeObservable.next(message);
   }
 }
