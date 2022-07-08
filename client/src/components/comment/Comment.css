@@ -13,6 +13,7 @@
   font-size: var(--font-size-x-small);
   font-weight: var(--font-weight-light);
   color: var(--color-cyan-800);
+  margin-left: var(--spacing-2x-small);
 }
 
 .comment__content__text {

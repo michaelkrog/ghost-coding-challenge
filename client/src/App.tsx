@@ -16,13 +16,20 @@ function App() {
   };
 
   return (
+    
     <div className="App">
-      <Avatar username='rob'></Avatar>
-      <input></input>
-      <button>Button</button>
-      <button className="text">Text button</button>
-      <hr></hr>
-      <Comment message={message}></Comment>
+      <h1>Discussion</h1>
+        <div className="comment-input">
+            <Avatar username='rob'></Avatar>
+            <input className="comment-input__input" placeholder="What are your thoughts?" type="text"></input>
+            <button className="comment-input__button">Comment</button>
+        </div>
+
+        <hr></hr>
+
+        <div className="comments">
+          <Comment message={message}></Comment>
+        </div>
     </div>
   );
 }
