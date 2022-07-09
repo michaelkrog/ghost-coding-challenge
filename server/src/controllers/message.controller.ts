@@ -1,6 +1,6 @@
 import { Body, Controller, Get, MessageEvent, Param, Post, Sse } from '@nestjs/common';
 import { interval, map, Observable } from 'rxjs';
-import { Message } from 'src/models/message';
+import { Message } from '../models/message';
 import { MessageService } from '../services/message.service';
 
 @Controller('api/messages')

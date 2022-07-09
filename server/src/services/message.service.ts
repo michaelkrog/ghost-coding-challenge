@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Observable, Subject } from 'rxjs';
-import { Message } from 'src/models/message';
+import { Message } from '../models/message';
 
 @Injectable()
 export class MessageService {
