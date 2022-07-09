@@ -67,7 +67,7 @@ class App extends Component<{}, { messages: Message[] }> {
   render() {
     return (
 
-      <div className="App">
+      <div className="app">
         <h1>Discussion</h1>
         <CommentInput onMessage={message => this.onMessage(message)}></CommentInput>
 
