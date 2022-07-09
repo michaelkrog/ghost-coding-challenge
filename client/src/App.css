@@ -1,4 +1,7 @@
 
+.app {
+  margin: 0 var(--spacing-medium);
+}
 
 .comments {
   margin-top: var(--spacing-2x-large);
