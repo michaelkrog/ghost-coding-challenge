@@ -6,10 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start": "npm run start --workspace=server & npm run start --workspace=client"
+    "start": "npm run start --workspace=server & npm run start --workspace=client",
+    "build": "npm run build --workspace=client && npm run build --workspace=server && rm -rf dist && mkdir dist && cp -r node_modules dist/node_modules && cp -r server/dist dist/server && cp -r client/build dist/client"
   },
   "dependencies": {
-    "date-fns": "^2.28.0"
+
   },
   "workspaces": [
     "server",
