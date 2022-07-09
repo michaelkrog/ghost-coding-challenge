@@ -58,7 +58,7 @@ class CommentInput extends Component<{ onMessage?: (message: Message) => void },
     return (
       <div className="comment-input">
         <Avatar username={this.state.user.username}></Avatar>
-        <input className="comment-input__input" placeholder="What are your thoughts?" type="text" onInput={ev => this.onInput(ev)}></input>
+        <input className="comment-input__input" placeholder="What are your thoughts?" value={this.state.text} type="text" onInput={ev => this.onInput(ev)}></input>
         <button className="comment-input__button" onClick={_ => this.onSubmit()}>Comment</button>
       </div>
     );
